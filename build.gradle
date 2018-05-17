@@ -11,6 +11,7 @@ repositories {
 
 dependencies {
     compile 'com.mashape.unirest:unirest-java:1.4.9'
+    compile 'com.google.code.gson:gson:2.8.4'
 
     testCompile 'junit:junit:4.12'
 }

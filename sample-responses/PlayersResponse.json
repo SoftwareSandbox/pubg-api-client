@@ -1,0 +1,54 @@
+{
+  "data": [
+    {
+      "type": "player",
+      "id": "account.2b95c68272fd467db565f5134277993b",
+      "attributes": {
+        "updatedAt": "2018-04-06T17:31:00Z",
+        "patchVersion": "",
+        "name": "Jooones",
+        "stats": null,
+        "titleId": "bluehole-pubg",
+        "shardId": "pc-eu",
+        "createdAt": "2018-04-06T17:31:00Z"
+      },
+      "relationships": {
+        "assets": {
+          "data": []
+        },
+        "matches": {
+          "data": [
+            {
+              "type": "match",
+              "id": "439b4e90-f9ea-49ef-bf62-00241492dffe"
+            },
+            {
+              "type": "match",
+              "id": "9a6459d0-5b58-476f-9111-29893a794d67"
+            },
+            {
+              "type": "match",
+              "id": "cc1c7be9-ba7a-45bc-9257-4089ca543889"
+            },
+            {
+              "type": "match",
+              "id": "50867f48-d640-4e19-b48f-b4f72ce07447"
+            },
+            {
+              "type": "match",
+              "id": "ed9f46c0-5733-482f-bb69-f60b21fc2846"
+            }
+          ]
+        }
+      },
+      "links": {
+        "self": "https://api.playbattlegrounds.com/shards/pc-eu/players/account.2b95c68272fd467db565f5134277993b",
+        "schema": ""
+      }
+    }
+  ],
+  "links": {
+    "self": "https://api.playbattlegrounds.com/shards/pc-eu/players?filter[playerIds]=account.2b95c68272fd467db565f5134277993b"
+  },
+  "meta": {}
+}
