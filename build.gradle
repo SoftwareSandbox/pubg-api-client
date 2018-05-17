@@ -10,5 +10,7 @@ repositories {
 }
 
 dependencies {
+    compile 'com.mashape.unirest:unirest-java:1.4.9'
+
     testCompile 'junit:junit:4.12'
 }
