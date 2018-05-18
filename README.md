@@ -18,25 +18,29 @@ Provide the api key in the constructor of the `PubgApiClient` class.
 ```java
 import com.softwaresandbox.pubgclient.PubgApiClient;
 
-new PubgApiClient("<api-key>");
-
+public class DemoTime {
+    
+    public static void main(String[] args) {
+        new PubgApiClient("<api-key>");   
+    }
+}
 ```
 
 ### API key in the predefined location
 Place the property `development=<api-key>` in a `.key/pubgapi.key` file in your user's home directory:
 
-- execute the following commands:
+- Execute the following commands:
     ```bash
     cd ~
     mkdir .key
     nano .key/pubgapi.key
     ```
-- add `development=<api-key>`
+- Add `development=<api-key>` to the opened file
 
 ## Using the library
 Create an instance of the `PubgApiClient` class and call retrieve the desired information by calling the corresponding methods.  
-Example:
 
+Example usage:
 ```java
 import com.softwaresandbox.pubgclient.PubgApiClient;
 import com.softwaresandbox.pubgclient.PubgApiClientException;
