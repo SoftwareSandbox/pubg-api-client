@@ -11,14 +11,15 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoRule;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+import static java.nio.file.Files.readAllBytes;
+import static java.nio.file.Paths.get;
 import static java.util.Arrays.asList;
 import static java.util.Collections.singleton;
+import static java.util.Objects.requireNonNull;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 import static org.mockito.junit.MockitoJUnit.rule;
@@ -44,8 +45,8 @@ public class PubgApiClientTest {
 
     @BeforeClass
     public static void setUp() throws Exception {
-        twoPlayersSuccessResponse = new String(Files.readAllBytes(Paths.get(PubgApiClientTest.class.getClassLoader().getResource("getPlayersResponse.json").toURI())));
-        matchSuccessResponse = new String(Files.readAllBytes(Paths.get(PubgApiClientTest.class.getClassLoader().getResource("getMatchResponse.json").toURI())));
+        twoPlayersSuccessResponse = new String(readAllBytes(get(requireNonNull(PubgApiClientTest.class.getClassLoader().getResource("getPlayersResponse.json")).toURI())));
+        matchSuccessResponse = new String(readAllBytes(get(requireNonNull(PubgApiClientTest.class.getClassLoader().getResource("getMatchResponse.json")).toURI())));
     }
 
     @Test
@@ -91,6 +92,7 @@ public class PubgApiClientTest {
     }
 
     @Test
+    @SuppressWarnings("ConstantConditions")
     public void getMatchWhenMatchFoundThenReturnMatchResponse() throws PubgApiClientException {
         when(pubgApiCaller.getMatch(MATCH_ID)).thenReturn(matchSuccessResponse);
 

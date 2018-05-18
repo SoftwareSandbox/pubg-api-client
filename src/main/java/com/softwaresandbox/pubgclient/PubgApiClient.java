@@ -25,6 +25,16 @@ public class PubgApiClient {
         this.pubgApiCaller = new PubgApiCaller();
     }
 
+    // TODO
+//    public Optional<PlayerResponse> getPlayerByName(String playerName) throws PubgApiClientException {
+//        throw new UnsupportedOperationException("TODO");
+//    }
+
+    // TODO
+//    public Optional<PlayerResponse> getPlayerById(String playerId) throws PubgApiClientException {
+//        throw new UnsupportedOperationException("TODO");
+//    }
+
     public PlayersResponse getPlayersByName(Set<String> playerNames) throws PubgApiClientException {
         String playersJson = pubgApiCaller.getPlayersByName(playerNames);
         return getPlayerResponse(playersJson);
@@ -39,6 +49,24 @@ public class PubgApiClient {
         return getGson().fromJson(playersJson, PlayersResponse.class);
     }
 
+    // TODO
+//    private Object getPlayerSeasonResponse(String playerId, String seasonId) {
+//        throw new UnsupportedOperationException("TODO");
+//    }
+
+    // TODO
+//    private Object getSeasons() {
+//        throw new UnsupportedOperationException("TODO");
+//    }
+
+    // TODO
+//    private Object getSamples() {
+//        throw new UnsupportedOperationException("TODO");
+//    }
+
+    // TODO
+    // telemetry related stuff
+
     public Optional<MatchResponse> getMatch(String id) throws PubgApiClientException {
         String matchJson = pubgApiCaller.getMatch(id);
         MatchResponse matchResponse = getGson().fromJson(matchJson, MatchResponse.class);
@@ -46,9 +74,9 @@ public class PubgApiClient {
     }
 
     // TODO
-    public String getStatus() {
-        throw new UnsupportedOperationException("TODO");
-    }
+//    public String getStatus() {
+//        throw new UnsupportedOperationException("TODO");
+//    }
 
     // TODO test separately
     private Gson getGson() {
@@ -74,16 +102,4 @@ public class PubgApiClient {
         return (json, typeOfT, context) -> parse(json.getAsString());
     }
 
-    // TODO remove
-    public static void main(String[] args) {
-        try {
-//            PlayersResponse playerResponse = new PubgApiClient().getPlayersByName(new HashSet<>(asList("Jooones", "zwiep")));
-//            PlayersResponse playerResponse = new PubgApiClient().getPlayersById(new HashSet<>(asList("account.2b95c68272fd467db565f5134277993b", "account.b020ad1e124140c49f9ca3c5d47f99bb")));
-//            System.out.println(playerResponse);
-            Optional<MatchResponse> matchResponse = new PubgApiClient().getMatch("439b4e90-f9ea-49ef-bf62-00241492dffe");
-            System.out.println(matchResponse);
-        } catch (PubgApiClientException e) {
-            e.printStackTrace();
-        }
-    }
 }
