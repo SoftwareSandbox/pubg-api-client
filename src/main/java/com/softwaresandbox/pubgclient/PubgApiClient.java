@@ -9,13 +9,17 @@ import com.softwaresandbox.pubgclient.model.match.ParticipantRosterAsset;
 import com.softwaresandbox.pubgclient.model.match.asset.Asset;
 import com.softwaresandbox.pubgclient.model.match.participant.Participant;
 import com.softwaresandbox.pubgclient.model.match.roster.Roster;
+import com.softwaresandbox.pubgclient.model.player.Player;
+import com.softwaresandbox.pubgclient.model.player.PlayerResponse;
 import com.softwaresandbox.pubgclient.model.player.PlayersResponse;
 
 import java.time.ZonedDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
 import static java.time.ZonedDateTime.parse;
+import static java.util.Collections.singleton;
 
 public class PubgApiClient {
 
@@ -25,15 +29,23 @@ public class PubgApiClient {
         this.pubgApiCaller = new PubgApiCaller();
     }
 
-    // TODO
-//    public Optional<PlayerResponse> getPlayerByName(String playerName) throws PubgApiClientException {
-//        throw new UnsupportedOperationException("TODO");
-//    }
+    public Optional<PlayerResponse> getPlayerByName(String playerName, String region) throws PubgApiClientException {
+        PlayersResponse playersResponse = getPlayersByName(singleton(playerName), region);
+        List<Player> players = playersResponse.getPlayers();
+        if (players.size() > 0) {
+            return Optional.of(new PlayerResponse(players.get(0), playersResponse.getLinks()));
+        }
+        return Optional.empty();
+    }
 
-    // TODO
-//    public Optional<PlayerResponse> getPlayerById(String playerId) throws PubgApiClientException {
-//        throw new UnsupportedOperationException("TODO");
-//    }
+    public Optional<PlayerResponse> getPlayerById(String playerId, String region) throws PubgApiClientException {
+        PlayersResponse playersResponse = getPlayersById(singleton(playerId), region);
+        List<Player> players = playersResponse.getPlayers();
+        if (players.size() > 0) {
+            return Optional.of(new PlayerResponse(players.get(0), playersResponse.getLinks()));
+        }
+        return Optional.empty();
+    }
 
     public PlayersResponse getPlayersByName(Set<String> playerNames, String region) throws PubgApiClientException {
         String playersJson = pubgApiCaller.getPlayersByName(playerNames, region);
@@ -49,23 +61,9 @@ public class PubgApiClient {
         return getGson().fromJson(playersJson, PlayersResponse.class);
     }
 
-    // TODO
-//    private Object getPlayerSeasonResponse(String playerId, String seasonId) {
-//        throw new UnsupportedOperationException("TODO");
-//    }
+    // TODO getPlayerSeasonResponse(String playerId, String seasonId)
 
-    // TODO
-//    private Object getSeasons() {
-//        throw new UnsupportedOperationException("TODO");
-//    }
-
-    // TODO
-//    private Object getSamples() {
-//        throw new UnsupportedOperationException("TODO");
-//    }
-
-    // TODO
-    // telemetry related stuff
+    // TODO getSeasons()
 
     public Optional<MatchResponse> getMatch(String id, String region) throws PubgApiClientException {
         String matchJson = pubgApiCaller.getMatch(id, region);
@@ -73,10 +71,11 @@ public class PubgApiClient {
         return matchResponse.getMatch() != null ? Optional.of(matchResponse) : Optional.empty();
     }
 
-    // TODO
-//    public String getStatus() {
-//        throw new UnsupportedOperationException("TODO");
-//    }
+    // TODO getSamples() {
+
+    // TODO telemetry related stuff
+
+    // TODO getStatus()
 
     // TODO test separately
     private Gson getGson() {
