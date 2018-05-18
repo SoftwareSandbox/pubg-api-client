@@ -66,4 +66,4 @@ public class DemoTime {
 }
 ```
 
-Sponsored by [Cegeka](https://www.cegeka.com/).
+Made with :heart: by [Cegeka](https://www.cegeka.com/).
