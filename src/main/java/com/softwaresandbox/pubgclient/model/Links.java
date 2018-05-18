@@ -1,6 +1,6 @@
 package com.softwaresandbox.pubgclient.model;
 
-public class Link {
+public class Links {
 
     private String self;
 
@@ -14,7 +14,7 @@ public class Link {
 
     @Override
     public String toString() {
-        return "Link{" +
+        return "Links{" +
                 "self='" + self + '\'' +
                 '}';
     }

@@ -1,7 +1,7 @@
 package com.softwaresandbox.pubgclient.model.player;
 
 import com.google.gson.annotations.SerializedName;
-import com.softwaresandbox.pubgclient.model.Link;
+import com.softwaresandbox.pubgclient.model.Links;
 
 public class Player {
 
@@ -10,8 +10,7 @@ public class Player {
     private PlayerAttributes playerAttributes;
     @SerializedName("relationships")
     private PlayerRelationships playerRelationships;
-    @SerializedName("links")
-    private Link link;
+    private Links links;
 
     public String getId() {
         return id;
@@ -37,12 +36,12 @@ public class Player {
         this.playerRelationships = playerRelationships;
     }
 
-    public Link getLink() {
-        return link;
+    public Links getLinks() {
+        return links;
     }
 
-    public void setLink(Link link) {
-        this.link = link;
+    public void setLinks(Links links) {
+        this.links = links;
     }
 
     @Override
@@ -51,7 +50,7 @@ public class Player {
                 "id='" + id + '\'' +
                 ", playerAttributes=" + playerAttributes +
                 ", playerRelationships=" + playerRelationships +
-                ", link=" + link +
+                ", links=" + links +
                 '}';
     }
 }
