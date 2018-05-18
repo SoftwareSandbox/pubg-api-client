@@ -106,4 +106,7 @@ public class PubgApiClient {
         return (json, typeOfT, context) -> parse(json.getAsString());
     }
 
+    void setPubgApiCaller(PubgApiCaller pubgApiCaller) {
+        this.pubgApiCaller = pubgApiCaller;
+    }
 }

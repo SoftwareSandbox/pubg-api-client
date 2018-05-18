@@ -9,6 +9,7 @@ import com.softwaresandbox.pubgclient.model.match.participant.ParticipantStats;
 import com.softwaresandbox.pubgclient.model.match.roster.Roster;
 import com.softwaresandbox.pubgclient.model.player.Player;
 import com.softwaresandbox.pubgclient.model.player.PlayersResponse;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
@@ -48,14 +49,18 @@ public class PubgApiClientTest {
     @Mock
     private PubgApiCaller pubgApiCaller;
 
-    @InjectMocks
-    private PubgApiClient pubgApiClient;
+    private PubgApiClient pubgApiClient = new PubgApiClient();
 
     @BeforeClass
-    public static void setUp() throws Exception {
+    public static void beforeClass() throws Exception {
         twoPlayersSuccessResponse = new String(readAllBytes(get(requireNonNull(PubgApiClientTest.class.getClassLoader().getResource("getPlayersResponse.json")).toURI())));
         matchSuccessResponse = new String(readAllBytes(get(requireNonNull(PubgApiClientTest.class.getClassLoader().getResource("getMatchResponse.json")).toURI())));
         matchSuccessResponseAdjustedStats = new String(readAllBytes(get(requireNonNull(PubgApiClientTest.class.getClassLoader().getResource("getMatchResponseAdjustedStats.json")).toURI())));
+    }
+
+    @Before
+    public void setUp() throws Exception {
+        pubgApiClient.setPubgApiCaller(pubgApiCaller);
     }
 
     @Test
@@ -124,7 +129,7 @@ public class PubgApiClientTest {
 
     @Test
     @SuppressWarnings("ConstantConditions")
-    public void getMatch_MatchReponseContainsAllRequiredObjects() throws PubgApiClientException {
+    public void getMatch_MatchResponseContainsAllRequiredObjects() throws PubgApiClientException {
         when(pubgApiCaller.getMatch(MATCH_ID, REGION)).thenReturn(matchSuccessResponseAdjustedStats);
 
         Optional<MatchResponse> actual = pubgApiClient.getMatch(MATCH_ID, REGION);
