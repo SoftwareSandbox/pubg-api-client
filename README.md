@@ -21,7 +21,7 @@ import com.softwaresandbox.pubgclient.PubgApiClient;
 public class DemoTime {
     
     public static void main(String[] args) {
-        new PubgApiClient("<api-key>");   
+        PubgApiClient pubgApiClient = new PubgApiClient("<api-key>");
     }
 }
 ```
