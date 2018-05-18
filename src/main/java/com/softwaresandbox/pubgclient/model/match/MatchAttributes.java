@@ -10,7 +10,6 @@ public class MatchAttributes {
     private ZonedDateTime createdAt;
     private int duration;
     private String titleId;
-    private String patchVersion;
 
     public String getShardId() {
         return shardId;
@@ -60,14 +59,6 @@ public class MatchAttributes {
         this.titleId = titleId;
     }
 
-    public String getPatchVersion() {
-        return patchVersion;
-    }
-
-    public void setPatchVersion(String patchVersion) {
-        this.patchVersion = patchVersion;
-    }
-
     @Override
     public String toString() {
         return "MatchAttributes{" +
@@ -77,7 +68,6 @@ public class MatchAttributes {
                 ", createdAt=" + createdAt +
                 ", duration=" + duration +
                 ", titleId='" + titleId + '\'' +
-                ", patchVersion='" + patchVersion + '\'' +
                 '}';
     }
 }
