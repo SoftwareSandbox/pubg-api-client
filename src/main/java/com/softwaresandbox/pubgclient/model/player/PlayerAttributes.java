@@ -58,4 +58,16 @@ public class PlayerAttributes {
     public void setPatchVersion(String patchVersion) {
         this.patchVersion = patchVersion;
     }
+
+    @Override
+    public String toString() {
+        return "PlayerAttributes{" +
+                "name='" + name + '\'' +
+                ", shardId='" + shardId + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", titleId='" + titleId + '\'' +
+                ", patchVersion='" + patchVersion + '\'' +
+                '}';
+    }
 }

@@ -2,6 +2,7 @@ package com.softwaresandbox.pubgclient.model;
 
 import java.util.List;
 
+// TODO improve this, make this class go away?
 public class DataList<T> {
 
     private List<T> data;
@@ -12,5 +13,12 @@ public class DataList<T> {
 
     public void setData(List<T> data) {
         this.data = data;
+    }
+
+    @Override
+    public String toString() {
+        return "DataList{" +
+                "data=" + data +
+                '}';
     }
 }

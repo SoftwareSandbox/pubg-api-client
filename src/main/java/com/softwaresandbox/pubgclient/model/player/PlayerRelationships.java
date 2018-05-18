@@ -16,4 +16,11 @@ public class PlayerRelationships {
     public void setMatchIds(DataList<MatchId> matchIds) {
         this.matchIds = matchIds;
     }
+
+    @Override
+    public String toString() {
+        return "PlayerRelationships{" +
+                "matchIds=" + matchIds +
+                '}';
+    }
 }

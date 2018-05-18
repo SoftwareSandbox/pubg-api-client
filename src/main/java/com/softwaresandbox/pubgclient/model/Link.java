@@ -11,4 +11,11 @@ public class Link {
     public void setSelf(String self) {
         this.self = self;
     }
+
+    @Override
+    public String toString() {
+        return "Link{" +
+                "self='" + self + '\'' +
+                '}';
+    }
 }

@@ -44,4 +44,14 @@ public class Player {
     public void setLink(Link link) {
         this.link = link;
     }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "id='" + id + '\'' +
+                ", playerAttributes=" + playerAttributes +
+                ", playerRelationships=" + playerRelationships +
+                ", link=" + link +
+                '}';
+    }
 }
