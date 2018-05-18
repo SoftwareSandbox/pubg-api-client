@@ -1,4 +1,4 @@
-package com.softwaresandbox.pubgclient.model.roster;
+package com.softwaresandbox.pubgclient.model.match.roster;
 
 public class ParticipantId {
 

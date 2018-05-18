@@ -1,15 +1,15 @@
-package com.softwaresandbox.pubgclient.model.roster;
+package com.softwaresandbox.pubgclient.model.match.roster;
 
 public class RosterStats {
 
     private int rank;
     private String teamId;
 
-    public Integer getRank() {
+    public int getRank() {
         return rank;
     }
 
-    public void setRank(Integer rank) {
+    public void setRank(int rank) {
         this.rank = rank;
     }
 

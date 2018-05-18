@@ -8,7 +8,7 @@ public class MatchAttributes {
     private String gameMode;
     private String mapName;
     private ZonedDateTime createdAt;
-    private Integer duration;
+    private int duration;
     private String titleId;
     private String patchVersion;
 
@@ -44,11 +44,11 @@ public class MatchAttributes {
         this.createdAt = createdAt;
     }
 
-    public Integer getDuration() {
+    public int getDuration() {
         return duration;
     }
 
-    public void setDuration(Integer duration) {
+    public void setDuration(int duration) {
         this.duration = duration;
     }
 

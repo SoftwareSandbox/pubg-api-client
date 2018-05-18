@@ -1,6 +1,7 @@
 package com.softwaresandbox.pubgclient;
 
 import com.softwaresandbox.pubgclient.api.PubgApiCaller;
+import com.softwaresandbox.pubgclient.model.match.MatchResponse;
 import com.softwaresandbox.pubgclient.model.player.Player;
 import com.softwaresandbox.pubgclient.model.player.PlayersResponse;
 import org.junit.BeforeClass;
@@ -13,6 +14,7 @@ import org.mockito.junit.MockitoRule;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import static java.util.Arrays.asList;
@@ -25,8 +27,11 @@ public class PubgApiClientTest {
 
     private static final String NON_EXISTING_PLAYER = "NonExistingPlayer";
     private static final String NO_PLAYERS_FOUND_RESPONSE = "{\"errors\":[{\"title\":\"Not Found\",\"detail\":\"No players found matching criteria\"}]}";
+    private static final String NO_MATCH_FOUND_RESPONSE = "{\"errors\":[{\"title\":\"Not Found\",\"detail\":\"No match found with ID\"}]}";
+    private static final String MATCH_ID = "439b4e90-f9ea-49ef-bf62-00241492dffe";
 
     private static String twoPlayersSuccessResponse;
+    private static String matchSuccessResponse;
 
     @Rule
     public MockitoRule rule = rule();
@@ -40,6 +45,7 @@ public class PubgApiClientTest {
     @BeforeClass
     public static void setUp() throws Exception {
         twoPlayersSuccessResponse = new String(Files.readAllBytes(Paths.get(PubgApiClientTest.class.getClassLoader().getResource("getPlayersResponse.json").toURI())));
+        matchSuccessResponse = new String(Files.readAllBytes(Paths.get(PubgApiClientTest.class.getClassLoader().getResource("getMatchResponse.json").toURI())));
     }
 
     @Test
@@ -82,5 +88,26 @@ public class PubgApiClientTest {
         PlayersResponse actual = pubgApiClient.getPlayersById(playerIds);
 
         assertThat(actual.getPlayers()).isEmpty();
+    }
+
+    @Test
+    public void getMatchWhenMatchFoundThenReturnMatchResponse() throws PubgApiClientException {
+        when(pubgApiCaller.getMatch(MATCH_ID)).thenReturn(matchSuccessResponse);
+
+        Optional<MatchResponse> actual = pubgApiClient.getMatch(MATCH_ID);
+
+        assertThat(actual).isNotEmpty();
+        assertThat(actual.get().getMatch().getId()).isEqualTo(MATCH_ID);
+        assertThat(actual.get().getMatch().getMatchAttributes().getMapName()).isEqualTo("Erangel_Main");
+        assertThat(actual.get().getParticipants()).extracting(participant -> participant.getParticipantAttributes().getParticipantStats().getName()).contains("Jooones");
+    }
+
+    @Test
+    public void getMatchWhenNoMatchFoundThenReturnEmptyOptional() throws PubgApiClientException {
+        when(pubgApiCaller.getMatch(MATCH_ID)).thenReturn(NO_MATCH_FOUND_RESPONSE);
+
+        Optional<MatchResponse> actual = pubgApiClient.getMatch(MATCH_ID);
+
+        assertThat(actual).isEmpty();
     }
 }

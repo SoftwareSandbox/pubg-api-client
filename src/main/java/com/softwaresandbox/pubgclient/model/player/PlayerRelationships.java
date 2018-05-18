@@ -5,7 +5,7 @@ import com.softwaresandbox.pubgclient.model.DataList;
 
 public class PlayerRelationships {
 
-    // TODO find a way to retieve matchIds as a String here without the intermediate object
+    // TODO find a way to retrieve matchIds as a String here without the intermediate object
     @SerializedName("matches")
     private DataList<MatchId> matchIds;
 

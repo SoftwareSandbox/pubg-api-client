@@ -1,4 +1,4 @@
-package com.softwaresandbox.pubgclient.model.roster;
+package com.softwaresandbox.pubgclient.model.match.roster;
 
 import com.google.gson.annotations.SerializedName;
 import com.softwaresandbox.pubgclient.model.DataList;

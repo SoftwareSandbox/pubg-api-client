@@ -13,6 +13,7 @@ public class PubgApiCaller {
 
     private static final String BASE_URL = "https://api.playbattlegrounds.com";
 
+    // TODO provide region as a parameter
     private String region = "pc-eu";
 
     public String getPlayersByName(Set<String> playerNames) throws PubgApiClientException {
@@ -23,15 +24,22 @@ public class PubgApiCaller {
         return getPlayers(playerIds, "playerIds");
     }
 
+    public String getMatch(String id) throws PubgApiClientException {
+        return callApi("matches", "/" + id);
+    }
+
     private String getPlayers(Set<String> players, String criteria) throws PubgApiClientException {
+        return callApi("players", "?filter[" + criteria + "]=" + players.stream().collect(joining(",")));
+    }
+
+    private String callApi(String apiOperation, String parameters) throws PubgApiClientException {
         try {
-            return Unirest.get(BASE_URL + "/shards/" + region + "/players?filter[" + criteria + "]=" + players.stream().collect(joining(",")))
+            return Unirest.get(BASE_URL + "/shards/" + region + "/" + apiOperation + parameters)
                     .header("Authorization", "Bearer " + readPubgApiKey())
                     .header("Accept", "application/vnd.api+json")
                     .asString().getBody();
         } catch (UnirestException e) {
-            // TODO improve error message depending on the actual call
-            throw new PubgApiClientException("Error while calling Pubg API", e);
+            throw new PubgApiClientException("Error while calling Pubg API operation: /" + apiOperation, e);
         }
     }
 
@@ -43,5 +51,4 @@ public class PubgApiCaller {
             throw new PubgApiClientException("Error retrieving Pubg API status", e);
         }
     }
-
 }

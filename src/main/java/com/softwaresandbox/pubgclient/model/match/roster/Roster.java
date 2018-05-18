@@ -1,8 +1,9 @@
-package com.softwaresandbox.pubgclient.model.roster;
+package com.softwaresandbox.pubgclient.model.match.roster;
 
 import com.google.gson.annotations.SerializedName;
+import com.softwaresandbox.pubgclient.model.match.ParticipantRosterAsset;
 
-public class Roster {
+public class Roster implements ParticipantRosterAsset {
 
     private String id;
     @SerializedName("attributes")
