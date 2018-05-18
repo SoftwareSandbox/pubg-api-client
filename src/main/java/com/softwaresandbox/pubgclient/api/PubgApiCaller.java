@@ -14,17 +14,20 @@ public class PubgApiCaller {
     private static final String BASE_URL = "https://api.playbattlegrounds.com";
 
     // TODO provide region as a parameter
-    private String region = "pc-eu";
+    private String region;
 
-    public String getPlayersByName(Set<String> playerNames) throws PubgApiClientException {
+    public String getPlayersByName(Set<String> playerNames, String region) throws PubgApiClientException {
+        this.region = region;
         return getPlayers(playerNames, "playerNames");
     }
 
-    public String getPlayersById(Set<String> playerIds) throws PubgApiClientException {
+    public String getPlayersById(Set<String> playerIds, String region) throws PubgApiClientException {
+        this.region = region;
         return getPlayers(playerIds, "playerIds");
     }
 
-    public String getMatch(String id) throws PubgApiClientException {
+    public String getMatch(String id, String region) throws PubgApiClientException {
+        this.region = region;
         return callApi("matches", "/" + id);
     }
 

@@ -38,6 +38,7 @@ public class PubgApiClientTest {
     private static final String NO_PLAYERS_FOUND_RESPONSE = "{\"errors\":[{\"title\":\"Not Found\",\"detail\":\"No players found matching criteria\"}]}";
     private static final String NO_MATCH_FOUND_RESPONSE = "{\"errors\":[{\"title\":\"Not Found\",\"detail\":\"No match found with ID\"}]}";
     private static final String MATCH_ID = "439b4e90-f9ea-49ef-bf62-00241492dffe";
+    private static final String REGION = "pc-eu";
 
     private static String twoPlayersSuccessResponse;
     private static String matchSuccessResponse;
@@ -62,9 +63,9 @@ public class PubgApiClientTest {
     @Test
     public void getPlayersByNameWhenPlayersFoundThenReturnFilledPlayersResponse() throws PubgApiClientException {
         Set<String> playerNames = new HashSet<>(asList("Jooones", "zwiep"));
-        when(pubgApiCaller.getPlayersByName(playerNames)).thenReturn(twoPlayersSuccessResponse);
+        when(pubgApiCaller.getPlayersByName(playerNames, REGION)).thenReturn(twoPlayersSuccessResponse);
 
-        PlayersResponse actual = pubgApiClient.getPlayersByName(playerNames);
+        PlayersResponse actual = pubgApiClient.getPlayersByName(playerNames, REGION);
 
         assertThat(actual.getPlayers()).hasSize(2);
         assertThat(actual.getPlayers()).extracting(player -> player.getPlayerAttributes().getName()).containsOnly("Jooones", "zwiep");
@@ -73,9 +74,9 @@ public class PubgApiClientTest {
     @Test
     public void getPlayersByNameWhenNoPlayersFoundThenReturnPlayersResponseWithEmptyPlayerList() throws PubgApiClientException {
         Set<String> playerNames = singleton(NON_EXISTING_PLAYER);
-        when(pubgApiCaller.getPlayersByName(playerNames)).thenReturn(NO_PLAYERS_FOUND_RESPONSE);
+        when(pubgApiCaller.getPlayersByName(playerNames, REGION)).thenReturn(NO_PLAYERS_FOUND_RESPONSE);
 
-        PlayersResponse actual = pubgApiClient.getPlayersByName(playerNames);
+        PlayersResponse actual = pubgApiClient.getPlayersByName(playerNames, REGION);
 
         assertThat(actual.getPlayers()).isEmpty();
     }
@@ -83,9 +84,9 @@ public class PubgApiClientTest {
     @Test
     public void getPlayersByIdWhenPlayersFoundThenReturnFilledPlayersResponse() throws PubgApiClientException {
         Set<String> playerIds = new HashSet<>(asList("account.2b95c68272fd467db565f5134277993b", "account.b020ad1e124140c49f9ca3c5d47f99bb"));
-        when(pubgApiCaller.getPlayersById(playerIds)).thenReturn(twoPlayersSuccessResponse);
+        when(pubgApiCaller.getPlayersById(playerIds, REGION)).thenReturn(twoPlayersSuccessResponse);
 
-        PlayersResponse actual = pubgApiClient.getPlayersById(playerIds);
+        PlayersResponse actual = pubgApiClient.getPlayersById(playerIds, REGION);
 
         assertThat(actual.getPlayers()).hasSize(2);
         assertThat(actual.getPlayers()).extracting(Player::getId).containsOnly("account.2b95c68272fd467db565f5134277993b", "account.b020ad1e124140c49f9ca3c5d47f99bb");
@@ -94,9 +95,9 @@ public class PubgApiClientTest {
     @Test
     public void getPlayersByIdsWhenNoPlayersFoundThenReturnPlayersResponseWithEmptyPlayerList() throws PubgApiClientException {
         Set<String> playerIds = singleton(NON_EXISTING_PLAYER);
-        when(pubgApiCaller.getPlayersById(playerIds)).thenReturn(NO_PLAYERS_FOUND_RESPONSE);
+        when(pubgApiCaller.getPlayersById(playerIds, REGION)).thenReturn(NO_PLAYERS_FOUND_RESPONSE);
 
-        PlayersResponse actual = pubgApiClient.getPlayersById(playerIds);
+        PlayersResponse actual = pubgApiClient.getPlayersById(playerIds, REGION);
 
         assertThat(actual.getPlayers()).isEmpty();
     }
@@ -104,9 +105,9 @@ public class PubgApiClientTest {
     @Test
     @SuppressWarnings("ConstantConditions")
     public void getMatchWhenMatchFoundThenReturnMatchResponse() throws PubgApiClientException {
-        when(pubgApiCaller.getMatch(MATCH_ID)).thenReturn(matchSuccessResponse);
+        when(pubgApiCaller.getMatch(MATCH_ID, REGION)).thenReturn(matchSuccessResponse);
 
-        Optional<MatchResponse> actual = pubgApiClient.getMatch(MATCH_ID);
+        Optional<MatchResponse> actual = pubgApiClient.getMatch(MATCH_ID, REGION);
 
         assertThat(actual).isNotEmpty();
         assertThat(actual.get().getMatch().getId()).isEqualTo(MATCH_ID);
@@ -116,18 +117,18 @@ public class PubgApiClientTest {
 
     @Test
     public void getMatchWhenNoMatchFoundThenReturnEmptyOptional() throws PubgApiClientException {
-        when(pubgApiCaller.getMatch(MATCH_ID)).thenReturn(NO_MATCH_FOUND_RESPONSE);
+        when(pubgApiCaller.getMatch(MATCH_ID, REGION)).thenReturn(NO_MATCH_FOUND_RESPONSE);
 
-        Optional<MatchResponse> actual = pubgApiClient.getMatch(MATCH_ID);
+        Optional<MatchResponse> actual = pubgApiClient.getMatch(MATCH_ID, REGION);
 
         assertThat(actual).isEmpty();
     }
 
     @Test
     public void getMatch_MatchReponseContainsAllRequiredObjects() throws PubgApiClientException {
-        when(pubgApiCaller.getMatch(MATCH_ID)).thenReturn(matchSuccessResponseAdjustedStats);
+        when(pubgApiCaller.getMatch(MATCH_ID, REGION)).thenReturn(matchSuccessResponseAdjustedStats);
 
-        Optional<MatchResponse> actual = pubgApiClient.getMatch(MATCH_ID);
+        Optional<MatchResponse> actual = pubgApiClient.getMatch(MATCH_ID, REGION);
 
         assertContainsAllRequiredObjects(actual);
     }

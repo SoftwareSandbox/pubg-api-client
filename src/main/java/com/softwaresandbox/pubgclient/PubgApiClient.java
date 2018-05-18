@@ -35,13 +35,13 @@ public class PubgApiClient {
 //        throw new UnsupportedOperationException("TODO");
 //    }
 
-    public PlayersResponse getPlayersByName(Set<String> playerNames) throws PubgApiClientException {
-        String playersJson = pubgApiCaller.getPlayersByName(playerNames);
+    public PlayersResponse getPlayersByName(Set<String> playerNames, String region) throws PubgApiClientException {
+        String playersJson = pubgApiCaller.getPlayersByName(playerNames, region);
         return getPlayerResponse(playersJson);
     }
 
-    public PlayersResponse getPlayersById(Set<String> playerIds) throws PubgApiClientException {
-        String playersJson = pubgApiCaller.getPlayersById(playerIds);
+    public PlayersResponse getPlayersById(Set<String> playerIds, String region) throws PubgApiClientException {
+        String playersJson = pubgApiCaller.getPlayersById(playerIds, region);
         return getPlayerResponse(playersJson);
     }
 
@@ -67,8 +67,8 @@ public class PubgApiClient {
     // TODO
     // telemetry related stuff
 
-    public Optional<MatchResponse> getMatch(String id) throws PubgApiClientException {
-        String matchJson = pubgApiCaller.getMatch(id);
+    public Optional<MatchResponse> getMatch(String id, String region) throws PubgApiClientException {
+        String matchJson = pubgApiCaller.getMatch(id, region);
         MatchResponse matchResponse = getGson().fromJson(matchJson, MatchResponse.class);
         return matchResponse.getMatch() != null ? Optional.of(matchResponse) : Optional.empty();
     }
