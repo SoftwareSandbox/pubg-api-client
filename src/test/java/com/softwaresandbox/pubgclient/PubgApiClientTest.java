@@ -16,8 +16,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoRule;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Optional;
@@ -125,16 +123,18 @@ public class PubgApiClientTest {
     }
 
     @Test
+    @SuppressWarnings("ConstantConditions")
     public void getMatch_MatchReponseContainsAllRequiredObjects() throws PubgApiClientException {
         when(pubgApiCaller.getMatch(MATCH_ID, REGION)).thenReturn(matchSuccessResponseAdjustedStats);
 
         Optional<MatchResponse> actual = pubgApiClient.getMatch(MATCH_ID, REGION);
 
-        assertContainsAllRequiredObjects(actual);
+        assertContainsAllRequiredObjects(actual.get());
     }
 
-    private void assertContainsAllRequiredObjects(Optional<MatchResponse> actual) {
-        Match actualMatchObject = actual.get().getMatch();
+    @SuppressWarnings("ConstantConditions")
+    private void assertContainsAllRequiredObjects(MatchResponse actual) {
+        Match actualMatchObject = actual.getMatch();
         assertThat(actualMatchObject.getMatchAttributes()).isNotNull();
         assertThat(actualMatchObject.getMatchAttributes().getShardId()).isEqualTo("pc-eu");
         assertThat(actualMatchObject.getMatchAttributes().getMapName()).isEqualTo("Erangel_Main");
@@ -145,7 +145,7 @@ public class PubgApiClientTest {
 
         assertThat(actualMatchObject.getLinks().getSelf()).isEqualTo("https://api.playbattlegrounds.com/shards/pc-eu/matches/439b4e90-f9ea-49ef-bf62-00241492dffe");
 
-        Participant actualParticipant = actual.get().getParticipants().stream().filter(participant -> participant.getId().equals("093d650a-22ed-4199-b33a-7394ccf4e741")).findAny().get();
+        Participant actualParticipant = actual.getParticipants().stream().filter(participant -> participant.getId().equals("093d650a-22ed-4199-b33a-7394ccf4e741")).findAny().get();
         assertThat(actualParticipant.getParticipantAttributes()).isNotNull();
         assertThat(actualParticipant.getParticipantAttributes().getShardId()).isEqualTo("pc-eu");
 
@@ -179,20 +179,20 @@ public class PubgApiClientTest {
         assertThat(actualParticipantStats.getWinPoints()).isEqualTo(1538);
         assertThat(actualParticipantStats.getWinPointsDelta()).isEqualTo(3.837533);
 
-        Roster actualMatchRoster = actual.get().getRosters().stream().filter(roster -> roster.getId().equals("a32208bf-e02f-4e9a-954c-0ab528710d22")).findAny().get();
+        Roster actualMatchRoster = actual.getRosters().stream().filter(roster -> roster.getId().equals("a32208bf-e02f-4e9a-954c-0ab528710d22")).findAny().get();
         assertThat(actualMatchRoster.getRosterAttributes().getShardId()).isEqualTo("pc-eu");
         assertThat(actualMatchRoster.getRosterAttributes().getRosterStats().getRank()).isEqualTo(21);
         assertThat(actualMatchRoster.getRosterAttributes().getRosterStats().getTeamId()).isEqualTo("8");
         assertThat(actualMatchRoster.getRosterAttributes().getWon()).isFalse();
         assertThat(actualMatchRoster.getRosterRelationships().getParticipantIds().getData()).isNotEmpty();
 
-        Asset actualMatchAsset = actual.get().getAssets().stream().filter(asset -> asset.getId().equals("97f021bc-5447-11e8-b199-0a58647ba40b")).findAny().get();
+        Asset actualMatchAsset = actual.getAssets().stream().filter(asset -> asset.getId().equals("97f021bc-5447-11e8-b199-0a58647ba40b")).findAny().get();
         assertThat(actualMatchAsset.getAssetAttributes()).isNotNull();
         assertThat(actualMatchAsset.getAssetAttributes().getName()).isEqualTo("telemetry");
         assertThat(actualMatchAsset.getAssetAttributes().getDescription()).isEqualTo("");
         assertThat(actualMatchAsset.getAssetAttributes().getCreatedAt()).isEqualTo(ZonedDateTime.parse("2018-05-10T11:45:10Z"));
         assertThat(actualMatchAsset.getAssetAttributes().getUrl()).isEqualTo("https://telemetry-cdn.playbattlegrounds.com/bluehole-pubg/pc-eu/2018/05/10/11/45/97f021bc-5447-11e8-b199-0a58647ba40b-telemetry.json");
 
-        assertThat(actual.get().getLinks().getSelf()).isEqualTo("https://api-origin.playbattlegrounds.com/shards/pc-eu/matches/439b4e90-f9ea-49ef-bf62-00241492dffe");
+        assertThat(actual.getLinks().getSelf()).isEqualTo("https://api-origin.playbattlegrounds.com/shards/pc-eu/matches/439b4e90-f9ea-49ef-bf62-00241492dffe");
     }
 }
