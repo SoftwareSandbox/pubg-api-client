@@ -1,0 +1,13 @@
+language: java
+script:
+- "./gradlew build"
+before_cache:
+- rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+- rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+cache:
+  directories:
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
+notifications:
+  slack:
+    secure: WSDjCN5DrXH6ESLG8oz8ZRcxw5S5/WKTjLFhSSzHpxSm/Uvl7nrKDF9YDlUV8dUYoP7KGq4uyk5MgTS/Am+GZhYXBuMOqzOyOZYBdSNBJHs3OsEUw2PzHBWOfFNx7WgoYdSTuDqkEnHnRNnVKsd3gSApokCsUejLLrtlC3070YPshi/9jJv9KtQu7+n1kDyqCSVi25J2H0snuN0a9tAw5ydY1Q3r6Xr8xkE6zipoD2mn7FlK5ZlgdUcCjr2yK7CyO8kPcBKZdL1XQnfOqhF6Pmpv8mV3lEvO/Mwn+mfoma+5vydzjhobLjng9DIpJyTerUqrbOKcaP3YR9yEEh5Q/3d22HCg9CqtOdltUaZknJXiq8Ns4eIFcbqzd6ngiN2XCpAz3Dhu/8HvcihH7suUFyrxR9GVOVTtN6/JQYooDesa2aYe9d2JTe9O3YQO3gJ8Z0bn3bC3oLjjq4N9oy0WlVjp5Z25pRZmuvAMHINxbBFJpIDHIKNdkL49jSImJi42qnJbS6UDkK6YhC47E2DpA6xuMetEv54CCIwncodjWmTL0lhNlo0ZDBBYvXCG+W5vzZ3Qx4TkCIw7HZLueTtcCZKlfHKgAbFfs25QIUsgFNunEFvmy3+CmxdFIQspdR0Vzg2XZlOQlRoVTCYwX4V4FecSUuiM7jfUMBbT9XkK9Bs=
