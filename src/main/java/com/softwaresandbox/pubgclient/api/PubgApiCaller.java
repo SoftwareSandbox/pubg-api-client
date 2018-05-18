@@ -15,9 +15,17 @@ public class PubgApiCaller {
 
     private String region = "pc-eu";
 
-    public String getPlayers(Set<String> players) throws PubgApiClientException {
+    public String getPlayersByName(Set<String> playerNames) throws PubgApiClientException {
+        return getPlayers(playerNames, "playerNames");
+    }
+
+    public String getPlayersById(Set<String> playerIds) throws PubgApiClientException {
+        return getPlayers(playerIds, "playerIds");
+    }
+
+    private String getPlayers(Set<String> players, String criteria) throws PubgApiClientException {
         try {
-            return Unirest.get(BASE_URL + "/shards/" + region + "/players?filter[playerNames]=" + players.stream().collect(joining(",")))
+            return Unirest.get(BASE_URL + "/shards/" + region + "/players?filter[" + criteria + "]=" + players.stream().collect(joining(",")))
                     .header("Authorization", "Bearer " + readPubgApiKey())
                     .header("Accept", "application/vnd.api+json")
                     .asString().getBody();
@@ -35,6 +43,5 @@ public class PubgApiCaller {
             throw new PubgApiClientException("Error retrieving Pubg API status", e);
         }
     }
-
 
 }
