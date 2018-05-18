@@ -29,6 +29,11 @@ public class PubgApiClient {
         this.pubgApiCaller = new PubgApiCaller();
     }
 
+    public PubgApiClient(String apiKey) {
+        PubgApiKey.setPubgApiKey(apiKey);
+        this.pubgApiCaller = new PubgApiCaller();
+    }
+
     public Optional<PlayerResponse> getPlayerByName(String playerName, String region) throws PubgApiClientException {
         PlayersResponse playersResponse = getPlayersByName(singleton(playerName), region);
         List<Player> players = playersResponse.getPlayers();

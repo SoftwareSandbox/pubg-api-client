@@ -6,10 +6,23 @@ import java.io.InputStream;
 import java.nio.file.Paths;
 import java.util.Properties;
 
-public class PropertyFileReader {
+public class PubgApiKey {
+
+    private static String pubgApiKey;
+
+    public static String getPubgApiKey() {
+        if (pubgApiKey == null) {
+            pubgApiKey = readPubgApiKeyFromKeyFile();
+        }
+        return pubgApiKey;
+    }
+
+    public static void setPubgApiKey(String pubgApiKey) {
+        PubgApiKey.pubgApiKey = pubgApiKey;
+    }
 
     @SuppressWarnings("ThrowFromFinallyBlock")
-    public static String readPubgApiKey() {
+    private static String readPubgApiKeyFromKeyFile() {
         Properties prop = new Properties();
         InputStream input = null;
         String result = "";

@@ -3,10 +3,10 @@ package com.softwaresandbox.pubgclient.api;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.softwaresandbox.pubgclient.PubgApiClientException;
+import com.softwaresandbox.pubgclient.PubgApiKey;
 
 import java.util.Set;
 
-import static com.softwaresandbox.pubgclient.PropertyFileReader.readPubgApiKey;
 import static java.util.stream.Collectors.joining;
 
 public class PubgApiCaller {
@@ -38,7 +38,7 @@ public class PubgApiCaller {
     private String callApi(String apiOperation, String parameters) throws PubgApiClientException {
         try {
             return Unirest.get(BASE_URL + "/shards/" + region + "/" + apiOperation + parameters)
-                    .header("Authorization", "Bearer " + readPubgApiKey())
+                    .header("Authorization", "Bearer " + PubgApiKey.getPubgApiKey())
                     .header("Accept", "application/vnd.api+json")
                     .asString().getBody();
         } catch (UnirestException e) {

@@ -22,6 +22,7 @@ public class DemoTime {
     
     public static void main(String[] args) {
         PubgApiClient pubgApiClient = new PubgApiClient("<api-key>");
+        // ..
     }
 }
 ```
