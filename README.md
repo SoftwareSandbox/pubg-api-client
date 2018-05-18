@@ -1,4 +1,4 @@
-# pubg-api-client
+# Pubg API Client
 Java library to interface with the PUBG developer API.
 
 [![Build Status](https://travis-ci.org/SoftwareSandbox/pubg-api-client.svg)](https://travis-ci.org/SoftwareSandbox/pubg-api-client)
@@ -65,3 +65,5 @@ public class DemoTime {
     }
 }
 ```
+
+Sponsored by [Cegeka](https://www.cegeka.com/).
