@@ -1,6 +1,6 @@
 language: java
 script:
-- "./gradlew clean build"
+- "./gradlew clean build -x signArchives"
 before_cache:
 - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
 - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
