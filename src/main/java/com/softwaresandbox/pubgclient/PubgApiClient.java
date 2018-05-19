@@ -23,7 +23,7 @@ import static java.util.Collections.singleton;
 
 
 /**
- * <a href="https://github.com/SoftwareSandbox/pubg-api-client">https://github.com/SoftwareSandbox/pubg-api-client</a><br/><br/>
+ * <a href="https://github.com/SoftwareSandbox/pubg-api-client">https://github.com/SoftwareSandbox/pubg-api-client</a><br><br>
  *
  * Example usage:
  * <pre>
