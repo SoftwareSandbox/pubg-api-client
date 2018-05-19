@@ -64,8 +64,8 @@ signing {
 }
 
 // Fix for users and CI who don't have the configured properties to deploy artifacts
-ossrhUser=hasProperty('ossrhUser') ? ossrhUser : ''
-ossrhPassword=hasProperty('ossrhPassword') ? ossrhPassword : ''
+def ossrhUser=hasProperty('ossrhUser') ? ossrhUser : ''
+def ossrhPassword=hasProperty('ossrhPassword') ? ossrhPassword : ''
 
 uploadArchives {
     repositories {
