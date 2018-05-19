@@ -1,7 +1,20 @@
-group 'com.softwaresandbox'
-version '1.0-SNAPSHOT'
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.5.3"
+    }
+}
+
+group 'com.github.softwaresandbox'
+version '0.1.0'
+description 'Java library to interface with the PUBG developer API.'
 
 apply plugin: 'java'
+apply plugin: 'io.codearte.nexus-staging'
+apply plugin: 'signing'
+apply plugin: 'maven'
 
 sourceCompatibility = 1.8
 
@@ -17,3 +30,81 @@ dependencies {
     testCompile 'org.mockito:mockito-core:2.18.3'
     testCompile 'org.assertj:assertj-core:3.10.0'
 }
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task createTag(type: Exec, dependsOn: ['uploadArchives', 'closeAndPromoteRepository']) {
+    commandLine 'git', 'tag', "${version}"
+}
+
+task pushTag(type: Exec, dependsOn: createTag) {
+    commandLine 'git', 'push', 'origin', "${version}"
+}
+
+task fullBuildAndRelease(dependsOn: ['build', 'pushTag']) {
+    doLast {
+        println "Created full release of version ${version}"
+    }
+}
+
+artifacts {
+    archives javadocJar, sourcesJar
+}
+
+signing {
+    sign configurations.archives
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: ossrhUser, password: ossrhPassword)
+            }
+            pom.project {
+                name project.name
+                description project.description
+                packaging 'jar'
+                url 'https://github.com/SoftwareSandbox/pubg-api-client'
+
+                scm {
+                    url 'https://github.com/SoftwareSandbox/pubg-api-client.git'
+                    connection 'scm:git:https://github.com/SoftwareSandbox/pubg-api-client.git'
+                    developerConnection 'scm:git:git@github.com:SoftwareSandbox/pubg-api-client.git'
+                }
+
+                licenses {
+                    license {
+                        name 'MIT License'
+                        url 'https://github.com/SoftwareSandbox/pubg-api-client/blob/master/LICENSE'
+                        distribution 'repo'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id = 'softwaresandbox'
+                        name = 'Software Sandbox'
+                        email = 'thesoftwaresandbox@gmail.com'
+                    }
+                }
+            }
+        }
+    }
+}
+
+nexusStaging {
+    username = ossrhUser
+    password = ossrhPassword
+}
+
+closeAndPromoteRepository.mustRunAfter(uploadArchives)
