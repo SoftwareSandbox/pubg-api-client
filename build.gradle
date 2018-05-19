@@ -63,6 +63,10 @@ signing {
     sign configurations.archives
 }
 
+// Fix for users and CI who don't have the configured properties to deploy artifacts
+ossrhUser=hasProperty('ossrhUser') ? ossrhUser : ''
+ossrhPassword=hasProperty('ossrhPassword') ? ossrhPassword : ''
+
 uploadArchives {
     repositories {
         mavenDeployer {
