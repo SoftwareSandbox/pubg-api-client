@@ -21,6 +21,16 @@ import java.util.Set;
 import static java.time.ZonedDateTime.parse;
 import static java.util.Collections.singleton;
 
+
+/**
+ * <a href="https://github.com/SoftwareSandbox/pubg-api-client">https://github.com/SoftwareSandbox/pubg-api-client</a><br/><br/>
+ *
+ * Example usage:
+ * <pre>
+ * new PubgApiClient().getPlayerByName("shroud", "pc-na");
+ * </pre>
+ *
+ */
 public class PubgApiClient {
 
     private PubgApiCaller pubgApiCaller;
@@ -66,21 +76,11 @@ public class PubgApiClient {
         return getGson().fromJson(playersJson, PlayersResponse.class);
     }
 
-    // TODO getPlayerSeasonResponse(String playerId, String seasonId)
-
-    // TODO getSeasons()
-
     public Optional<MatchResponse> getMatch(String id, String region) throws PubgApiClientException {
         String matchJson = pubgApiCaller.getMatch(id, region);
         MatchResponse matchResponse = getGson().fromJson(matchJson, MatchResponse.class);
         return matchResponse.getMatch() != null ? Optional.of(matchResponse) : Optional.empty();
     }
-
-    // TODO getSamples() {
-
-    // TODO telemetry related stuff
-
-    // TODO getStatus()
 
     // TODO test separately
     private Gson getGson() {
