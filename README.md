@@ -101,5 +101,6 @@ public class DemoTime {
 - getTelemetry
 - getStatus
 
+---
 
 Made with :heart: by [Cegeka](https://www.cegeka.com/)
