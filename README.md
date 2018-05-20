@@ -3,6 +3,24 @@ Java library to interface with the PUBG developer API.
 
 [![Build Status](https://travis-ci.org/SoftwareSandbox/pubg-api-client.svg)](https://travis-ci.org/SoftwareSandbox/pubg-api-client)
 
+## Dependency
+The dependency can be downloaded from maven central.
+
+### Gradle
+```groovy
+compile "com.github.softwaresandbox:pubg-api-client:0.1.0"
+```
+
+### Maven
+
+```xml
+<dependency>
+    <groupId>com.github.softwaresandbox</groupId>
+    <artifactId>pubg-api-client</artifactId>
+    <version>0.1.0</version>
+</dependency>
+```
+
 ## Authenticating towards the PUBG developer API
 There are two ways to authenticate to the PUBG developer API, choose the one you find the most convenient:
 - Provide the key as an argument in the main constructor of the `PubgApiClient` class
