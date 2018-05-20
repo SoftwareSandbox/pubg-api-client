@@ -1,10 +1,12 @@
 # Pubg API Client
 Java library to interface with the PUBG developer API.
 
-[![Build Status](https://travis-ci.org/SoftwareSandbox/pubg-api-client.svg)](https://travis-ci.org/SoftwareSandbox/pubg-api-client)
+[![Maven metadata URI](https://img.shields.io/maven-metadata/v/http/central.maven.org/maven2/com/github/softwaresandbox/pubg-api-client/maven-metadata.xml.svg?color=blue)]()
+[![GitHub license](https://img.shields.io/github/license/SoftwareSandbox/pubg-api-client.svg)](https://github.com/softwaresandbox/pubg-api-client/blob/master/LICENSE)
+[![Build Status](https://travis-ci.org/SoftwareSandbox/pubg-api-client.svg)](https://travis-ci.org/softwaresandbox/pubg-api-client)
 
 ## Dependency
-The dependency can be downloaded from maven central.
+The library can be downloaded from maven central.
 
 ### Gradle
 ```groovy
@@ -12,7 +14,6 @@ compile "com.github.softwaresandbox:pubg-api-client:0.1.0"
 ```
 
 ### Maven
-
 ```xml
 <dependency>
     <groupId>com.github.softwaresandbox</groupId>
@@ -83,5 +84,22 @@ public class DemoTime {
     }
 }
 ```
+
+## Features
+
+### Currently supports
+- getPlayerByName
+- getPlayerById
+- getPlayersByName
+- getPlayersById
+- getMatch
+
+### Coming soon
+- getPlayerSeasonResponse
+- getSeasons
+- getSamples
+- getTelemetry
+- getStatus
+
 
 Made with :heart: by [Cegeka](https://www.cegeka.com/)
