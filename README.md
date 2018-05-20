@@ -1,7 +1,7 @@
 # Pubg API Client
 Java library to interface with the PUBG developer API.
 
-[![Maven metadata URI](https://img.shields.io/maven-metadata/v/http/central.maven.org/maven2/com/github/softwaresandbox/pubg-api-client/maven-metadata.xml.svg?color=blue)]()
+[![Maven metadata URI](https://img.shields.io/maven-metadata/v/http/central.maven.org/maven2/com/github/softwaresandbox/pubg-api-client/maven-metadata.xml.svg?colorB=1E90FF)](https://img.shields.io/maven-metadata/v/http/central.maven.org/maven2/com/github/softwaresandbox/pubg-api-client/maven-metadata.xml.svg?colorB=1E90FF)
 [![GitHub license](https://img.shields.io/github/license/SoftwareSandbox/pubg-api-client.svg)](https://github.com/softwaresandbox/pubg-api-client/blob/master/LICENSE)
 [![Build Status](https://travis-ci.org/SoftwareSandbox/pubg-api-client.svg)](https://travis-ci.org/softwaresandbox/pubg-api-client)
 
