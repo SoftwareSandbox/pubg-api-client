@@ -35,7 +35,7 @@ There are two ways to authenticate to the PUBG developer API, choose the one you
 Provide the api key in the constructor of the `PubgApiClient` class.
 
 ```java
-import com.softwaresandbox.pubgclient.PubgApiClient;
+import be.swsb.pubgclient.PubgApiClient;
 
 public class DemoTime {
     
@@ -62,11 +62,11 @@ Create an instance of the `PubgApiClient` class and call retrieve the desired in
 
 Example usage:
 ```java
-import com.softwaresandbox.pubgclient.PubgApiClient;
-import com.softwaresandbox.pubgclient.PubgApiClientException;
-import com.softwaresandbox.pubgclient.model.DataList;
-import com.softwaresandbox.pubgclient.model.player.MatchId;
-import com.softwaresandbox.pubgclient.model.player.PlayerResponse;
+import be.swsb.pubgclient.PubgApiClient;
+import be.swsb.pubgclient.PubgApiClientException;
+import be.swsb.pubgclient.model.DataList;
+import be.swsb.pubgclient.model.player.MatchId;
+import be.swsb.pubgclient.model.player.PlayerResponse;
 
 public class DemoTime {
 
