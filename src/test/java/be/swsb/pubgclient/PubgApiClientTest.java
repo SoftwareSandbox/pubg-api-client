@@ -58,7 +58,7 @@ public class PubgApiClientTest {
     }
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         pubgApiClient.setPubgApiCaller(pubgApiCaller);
     }
 
