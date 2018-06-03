@@ -1,6 +1,5 @@
 package be.swsb.pubgclient.gson;
 
-import be.swsb.pubgclient.model.DataList;
 import be.swsb.pubgclient.model.player.MatchId;
 import be.swsb.pubgclient.model.player.PlayerRelationships;
 import com.google.gson.Gson;
@@ -63,10 +62,9 @@ public class PlayerRelationshipsAdapter extends TypeAdapter<PlayerRelationships>
         writer.name("data");
         writer.beginArray();
 
-        DataList<MatchId> matchIds = playerRelationships.getMatchIds();
-        List<MatchId> matchIdsData = matchIds.getData();
-        if(matchIdsData != null) {
-            matchIdsData.forEach((matchId) -> writeMatchId(writer, matchId));
+        List<MatchId> matchIds = playerRelationships.getMatchIds();
+        if(matchIds != null) {
+            matchIds.forEach((matchId) -> writeMatchId(writer, matchId));
         }
 
         writer.endArray();
@@ -111,7 +109,7 @@ public class PlayerRelationshipsAdapter extends TypeAdapter<PlayerRelationships>
         while (reader.hasNext()) {
             readMatch(reader, matchIds);
         }
-        playerRelationships.setMatchIds(new DataList<>(matchIds));
+        playerRelationships.setMatchIds(new ArrayList<>(matchIds));
         reader.endArray();
         reader.endObject();
     }

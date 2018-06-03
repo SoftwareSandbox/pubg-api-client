@@ -1,29 +1,29 @@
 package be.swsb.pubgclient.model.player;
 
-import be.swsb.pubgclient.model.DataList;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class PlayerRelationships {
 
+    @SerializedName("matches")
+    private List<MatchId> matchIds;
+
     public PlayerRelationships() {
-        this(new DataList<>());
+        this(new ArrayList<>());
     }
 
-    public PlayerRelationships(DataList<MatchId> matchIds) {
+    public PlayerRelationships(List<MatchId> matchIds) {
         this.matchIds = matchIds;
     }
-
-    public DataList<MatchId> getMatchIds() {
+    public List<MatchId> getMatchIds() {
         return matchIds;
     }
     // TODO find a way to retrieve matchIds as a String here without the intermediate object
 
-    @SerializedName("matches")
-    private DataList<MatchId> matchIds;
-
-    public void setMatchIds(DataList<MatchId> matchIds) {
+    public void setMatchIds(List<MatchId> matchIds) {
         this.matchIds = matchIds;
     }
 
@@ -42,7 +42,6 @@ public class PlayerRelationships {
     }
 
     @Override
-
     public String toString() {
         return "PlayerRelationships{" +
                 "matchIds=" + matchIds +

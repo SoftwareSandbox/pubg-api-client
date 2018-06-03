@@ -1,7 +1,6 @@
 package be.swsb.pubgclient.gson;
 
 import be.swsb.pubgclient.AbstractUnitTest;
-import be.swsb.pubgclient.model.DataList;
 import be.swsb.pubgclient.model.player.MatchId;
 import be.swsb.pubgclient.model.player.PlayerRelationships;
 import com.google.gson.Gson;
@@ -59,7 +58,7 @@ public class PlayerRelationshipsAdapterTest extends AbstractUnitTest {
         matchId1.setId("439b4e90-f9ea-49ef-bf62-00241492dffe");
         matchId2.setId("9a6459d0-5b58-476f-9111-29893a794d67");
         ArrayList<MatchId> matchIds = Lists.newArrayList(matchId1, matchId2);
-        playerRelationships.setMatchIds(new DataList<>(matchIds));
+        playerRelationships.setMatchIds(new ArrayList<>(matchIds));
 
         String file = readFile("relationships_samples/twoMatches.json");
         JsonElement expectedJsonElement = jsonParser.parse(file);
@@ -84,7 +83,7 @@ public class PlayerRelationshipsAdapterTest extends AbstractUnitTest {
         matchId1.setId("439b4e90-f9ea-49ef-bf62-00241492dffe");
         matchId2.setId("9a6459d0-5b58-476f-9111-29893a794d67");
         ArrayList<MatchId> matchIds = Lists.newArrayList(matchId1, matchId2);
-        playerRelationships.setMatchIds(new DataList<>(matchIds));
+        playerRelationships.setMatchIds(new ArrayList<>(matchIds));
         String file = readFile("relationships_samples/twoMatches.json");
         jsonReader = new JsonTreeReader(jsonParser.parse(file));
 
