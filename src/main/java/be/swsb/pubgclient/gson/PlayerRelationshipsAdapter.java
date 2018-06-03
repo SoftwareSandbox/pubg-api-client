@@ -11,11 +11,21 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class PlayerRelationshipsAdapter extends TypeAdapter<PlayerRelationships> {
 
-    private final Gson gson;
+    public Gson getGson() {
+        return gson;
+    }
+
+    public void setGson(Gson gson) {
+        this.gson = gson;
+    }
+
+    private Gson gson;
 
     public PlayerRelationshipsAdapter(Gson gson) {
         this.gson = gson;
@@ -24,6 +34,7 @@ public class PlayerRelationshipsAdapter extends TypeAdapter<PlayerRelationships>
 
     @Override
     public void write(JsonWriter writer, PlayerRelationships playerRelationships) throws IOException {
+        Objects.requireNonNull(gson, "Gson must be set before calling this adapter");
         if (playerRelationships == null) {
             writer.nullValue();
         } else {
@@ -82,8 +93,10 @@ public class PlayerRelationshipsAdapter extends TypeAdapter<PlayerRelationships>
         reader.beginObject();
         while (reader.hasNext()) {
             switch (reader.nextName()) {
-                case "assets": readAssets(reader, playerRelationships); break;
-                case "matches": readMaches(reader, playerRelationships); break;
+                case "assets":  readAssets(reader, playerRelationships);
+                                break;
+                case "matches": readMaches(reader, playerRelationships);
+                                break;
             }
         }
         reader.endObject();
@@ -94,10 +107,26 @@ public class PlayerRelationshipsAdapter extends TypeAdapter<PlayerRelationships>
         reader.beginObject();
         reader.nextName();
         reader.beginArray();
+        List<MatchId> matchIds = new ArrayList<>();
         while (reader.hasNext()) {
-            reader.skipValue();
+            readMatch(reader, matchIds);
         }
+        playerRelationships.setMatchIds(new DataList<>(matchIds));
         reader.endArray();
+        reader.endObject();
+    }
+
+    private void readMatch(JsonReader reader, List<MatchId> matchIds) throws IOException {
+        reader.beginObject();
+        while (reader.hasNext()) {
+            switch (reader.nextName()) {
+                case "type":    reader.skipValue();
+                                break;
+                case "id":
+                            matchIds.add(new MatchId(reader.nextString()));
+                            break;
+            }
+        }
         reader.endObject();
     }
 

@@ -1,12 +1,14 @@
 package be.swsb.pubgclient;
 
 import be.swsb.pubgclient.api.PubgApiCaller;
+import be.swsb.pubgclient.gson.PlayerRelationshipsAdapter;
 import be.swsb.pubgclient.model.match.MatchResponse;
 import be.swsb.pubgclient.model.match.ParticipantRosterAsset;
 import be.swsb.pubgclient.model.match.asset.Asset;
 import be.swsb.pubgclient.model.match.participant.Participant;
 import be.swsb.pubgclient.model.match.roster.Roster;
 import be.swsb.pubgclient.model.player.Player;
+import be.swsb.pubgclient.model.player.PlayerRelationships;
 import be.swsb.pubgclient.model.player.PlayerResponse;
 import be.swsb.pubgclient.model.player.PlayersResponse;
 import com.google.gson.Gson;
@@ -86,6 +88,8 @@ public class PubgApiClient {
     private Gson getGson() {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapter(ZonedDateTime.class, getZonedDateTimeJsonDeserializer());
+        PlayerRelationshipsAdapter typeAdapter = new PlayerRelationshipsAdapter(null);
+        gsonBuilder.registerTypeAdapter(PlayerRelationships.class, typeAdapter);
         gsonBuilder.registerTypeAdapter(ParticipantRosterAsset.class, (JsonDeserializer<ParticipantRosterAsset>) (json, typeOfT, context) -> {
             String type = json.getAsJsonObject().get("type").getAsString();
             if (type.equals("participant")) {
@@ -99,7 +103,10 @@ public class PubgApiClient {
             }
             throw new IllegalArgumentException("Unknown type for " + ParticipantRosterAsset.class.getSimpleName() + " deserialization: " + type);
         });
-        return gsonBuilder.create();
+        Gson gson = gsonBuilder.create();
+        //TODO lose depependency on gson by using JsonSerialize/JsonDeserializer
+        typeAdapter.setGson(gson);
+        return gson;
     }
 
     private JsonDeserializer<ZonedDateTime> getZonedDateTimeJsonDeserializer() {

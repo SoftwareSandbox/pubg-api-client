@@ -40,8 +40,8 @@ public class PlayerRelationshipsAdapterTest extends AbstractUnitTest {
         gson = new Gson();
         playerRelationshipsAdapter = new PlayerRelationshipsAdapter(gson);
         playerRelationships = new PlayerRelationships();
-        matchId1 = new MatchId();
-        matchId2 = new MatchId();
+        matchId1 = new MatchId("id1");
+        matchId2 = new MatchId("id2");
     }
 
 
@@ -77,5 +77,32 @@ public class PlayerRelationshipsAdapterTest extends AbstractUnitTest {
         PlayerRelationships actual = playerRelationshipsAdapter.read(jsonReader);
 
         assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
+    public void read_whenTwoMatchesPresent_thenCreatePlayerRelationShipsWithTwoMatches() throws IOException {
+        matchId1.setId("439b4e90-f9ea-49ef-bf62-00241492dffe");
+        matchId2.setId("9a6459d0-5b58-476f-9111-29893a794d67");
+        ArrayList<MatchId> matchIds = Lists.newArrayList(matchId1, matchId2);
+        playerRelationships.setMatchIds(new DataList<>(matchIds));
+        String file = readFile("relationships_samples/twoMatches.json");
+        jsonReader = new JsonTreeReader(jsonParser.parse(file));
+
+        PlayerRelationships actual = playerRelationshipsAdapter.read(jsonReader);
+
+        assertThat(actual).isEqualTo(playerRelationships);
+    }
+
+    @Test
+    public void readWrite_shouldReturnSameJson() throws IOException {
+
+        String file = readFile("relationships_samples/fiveMatches.json");
+        JsonElement expectedJsonElement = jsonParser.parse(file);
+
+        jsonReader = new JsonTreeReader(expectedJsonElement);
+        PlayerRelationships read = playerRelationshipsAdapter.read(jsonReader);
+        JsonElement actualJsonElement = playerRelationshipsAdapter.toJsonTree(read);
+
+        assertThat(actualJsonElement).isEqualTo(expectedJsonElement);
     }
 }
