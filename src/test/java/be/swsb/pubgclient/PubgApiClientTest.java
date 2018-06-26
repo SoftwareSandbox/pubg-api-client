@@ -21,6 +21,7 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+import static be.swsb.pubgclient.PubgApiClient.DEFAULT_API_BASE_URL;
 import static java.nio.file.Files.readAllBytes;
 import static java.nio.file.Paths.get;
 import static java.util.Arrays.asList;
@@ -48,7 +49,7 @@ public class PubgApiClientTest {
     @Mock
     private PubgApiCaller pubgApiCaller;
 
-    private PubgApiClient pubgApiClient = new PubgApiClient();
+    private PubgApiClient pubgApiClient = new PubgApiClient(DEFAULT_API_BASE_URL);
 
     @BeforeClass
     public static void beforeClass() throws Exception {
