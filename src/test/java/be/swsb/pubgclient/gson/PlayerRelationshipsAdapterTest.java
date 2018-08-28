@@ -23,10 +23,8 @@ public class PlayerRelationshipsAdapterTest extends AbstractUnitTest {
 
 
     private PlayerRelationshipsAdapter playerRelationshipsAdapter;
-    private JsonTreeWriter jsonWriter;
     private JsonReader jsonReader;
     private JsonParser jsonParser;
-    private FileReader fileReader;
     private PlayerRelationships playerRelationships;
     private Gson gson;
     private MatchId matchId1;
@@ -34,10 +32,9 @@ public class PlayerRelationshipsAdapterTest extends AbstractUnitTest {
 
     @Before
     public void setUp() {
-        jsonWriter = new JsonTreeWriter();
         jsonParser = new JsonParser();
         gson = new Gson();
-        playerRelationshipsAdapter = new PlayerRelationshipsAdapter(gson);
+        playerRelationshipsAdapter = new PlayerRelationshipsAdapter(gson.getAdapter(MatchId.class));
         playerRelationships = new PlayerRelationships();
         matchId1 = new MatchId("id1");
         matchId2 = new MatchId("id2");

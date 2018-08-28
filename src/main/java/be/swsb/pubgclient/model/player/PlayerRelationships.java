@@ -21,7 +21,6 @@ public class PlayerRelationships {
     public List<MatchId> getMatchIds() {
         return matchIds;
     }
-    // TODO find a way to retrieve matchIds as a String here without the intermediate object
 
     public void setMatchIds(List<MatchId> matchIds) {
         this.matchIds = matchIds;
