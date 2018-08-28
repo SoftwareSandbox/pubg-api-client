@@ -33,6 +33,7 @@ public class PlayerRelationshipsAdapterTest extends AbstractUnitTest {
     @Before
     public void setUp() {
         jsonParser = new JsonParser();
+        gson = new Gson();
         playerRelationshipsAdapter = new PlayerRelationshipsAdapter(gson.getAdapter(MatchId.class));
         playerRelationships = new PlayerRelationships();
         matchId1 = new MatchId("id1");
