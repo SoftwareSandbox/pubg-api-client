@@ -105,7 +105,6 @@ public class PubgApiClient {
             }
             throw new IllegalArgumentException("Unknown type for " + ParticipantRosterAsset.class.getSimpleName() + " deserialization: " + type);
         });
-        //TODO lose dependency on gson by using JsonSerialize/JsonDeserializer
         return gsonBuilder.create();
     }
 
