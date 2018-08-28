@@ -36,15 +36,17 @@ import static java.util.Collections.singleton;
  */
 public class PubgApiClient {
 
+    public static final String DEFAULT_API_BASE_URL = "https://api.playbattlegrounds.com";
+
     private PubgApiCaller pubgApiCaller;
 
-    public PubgApiClient() {
-        this.pubgApiCaller = new PubgApiCaller();
+    PubgApiClient(String apiBaseUrl) {
+        this.pubgApiCaller = new PubgApiCaller(apiBaseUrl);
     }
 
-    public PubgApiClient(String apiKey) {
+    PubgApiClient(String apiBaseUrl, String apiKey) {
         PubgApiKey.setPubgApiKey(apiKey);
-        this.pubgApiCaller = new PubgApiCaller();
+        this.pubgApiCaller = new PubgApiCaller(apiBaseUrl);
     }
 
     public Optional<PlayerResponse> getPlayerByName(String playerName, String region) throws PubgApiClientException {
